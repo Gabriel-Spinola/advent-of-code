@@ -11,12 +11,12 @@ fn part1() {
         .clone()
         .enumerate()
         .filter(|&(i, _)| i % 2 == 0)
-        .map(|(_, value)| value.parse::<i32>().expect("Failed to parte value"))
+        .map(|(_, value)| value.parse::<i32>().expect("Failed to parse value"))
         .collect();
     let mut right: Vec<i32> = listed
         .enumerate()
         .filter(|&(i, _)| i % 2 != 0)
-        .map(|(_, value)| value.parse::<i32>().expect("Failed to parte value"))
+        .map(|(_, value)| value.parse::<i32>().expect("Failed to parse value"))
         .collect();
 
     left.sort();
@@ -42,16 +42,15 @@ fn part2() {
         .clone()
         .enumerate()
         .filter(|&(i, _)| i % 2 == 0)
-        .map(|(_, value)| value.parse::<i32>().expect("Failed to parte value"))
+        .map(|(_, value)| value.parse::<i32>().expect("Failed to parse value"))
         .collect();
 
     let total = left.into_iter().fold(0, |acc, value| {
         let occur = listed
             .clone()
             .enumerate()
-            .filter(|&(i, _)| i % 2 != 0)
-            .map(|(_, value)| value.parse::<i32>().expect("Failed to parte value"))
-            .filter(|&inner| inner == value)
+            .filter(|&(i, inner)| i % 2 != 0 && inner.parse::<i32>().expect("Failed to parse value") == value)
+            .map(|(_, value)| value.parse::<i32>().expect("Failed to parse value"))
             .count();
 
         acc + (value * (occur as i32))
